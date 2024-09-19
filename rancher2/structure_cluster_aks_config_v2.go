@@ -169,6 +169,18 @@ func flattenClusterAKSConfigV2(in *managementClient.AKSClusterConfigSpec, p []in
 	if in.PrivateCluster != nil {
 		obj["private_cluster"] = *in.PrivateCluster
 	}
+	if in.ManagedIdentity != nil {
+		mi := *in.ManagedIdentity
+		if mi != nil {
+			obj["managed_identity"] = *mi
+		}
+	}
+	if in.UserAssignedIdentity != nil {
+		obj["user_assigned_identity"] = *in.UserAssignedIdentity
+	}
+	if in.PrivateDNSZone != nil {
+		obj["private_dns_zone"] = *in.PrivateDNSZone
+	}
 	if in.Subnet != nil && len(*in.Subnet) > 0 {
 		obj["subnet"] = *in.Subnet
 	}
@@ -302,6 +314,16 @@ func expandClusterAKSConfigV2(p []interface{}) *managementClient.AKSClusterConfi
 	}
 	if v, ok := in["private_cluster"].(bool); ok {
 		obj.PrivateCluster = &v
+	}
+	if v, ok := in["user_assigned_identity"].(string); ok {
+		obj.UserAssignedIdentity = &v
+	}
+	if v, ok := in["private_dns_zone"].(string); ok {
+		obj.PrivateDNSZone = &v
+	}
+	if v, ok := in["managed_identity"].(bool); ok {
+		b := &v
+		obj.ManagedIdentity = &b
 	}
 
 	// These fields should be assigned just when import=false and no empty

@@ -269,6 +269,22 @@ func clusterAKSConfigV2Fields() map[string]*schema.Schema {
 			Computed:    true,
 			Description: "Is AKS cluster private?",
 		},
+		"private_dns_zone": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Computed:    true,
+			Description: "Private DNS Zone for the cluster node pools ",
+		},
+		"managed_identity": {
+			Type:        schema.TypeBool,
+			Optional:    true,
+			Description: "Is Managed Identity enabled for the AKS cluster?",
+		},
+		"user_assigned_identity": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "The user managed identity to attach to the AKS cluster ",
+		},
 		"subnet": {
 			Type:        schema.TypeString,
 			Optional:    true,
